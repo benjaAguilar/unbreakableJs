@@ -1,0 +1,40 @@
+{
+  "steps": [
+    {
+      "type": "Callstack",
+      "code": "console.log(A);"
+    },
+    {
+      "type": "Output",
+      "code": "A"
+    },
+    {
+      "type": "Callstack",
+      "code": "SetTimeout(cb);"
+    },
+    {
+      "type": "webApi",
+      "code": "SetTimeout(cb);"
+    },
+    {
+      "type": "Macrotask queue",
+      "code": "() => console.log(B)"
+    },
+    {
+      "type": "Callstack",
+      "code": "console.log(C)"
+    },
+    {
+      "type": "Output",
+      "code": "C"
+    },
+    {
+      "type": "Callstack",
+      "code": "console.log(B)"
+    },
+    {
+      "type": "Output",
+      "code": "B"
+    }
+  ]
+}
