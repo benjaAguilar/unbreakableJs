@@ -21,7 +21,7 @@ export function runAll(linkedList: LinkedList) {
   if (!visualizer) return alert("error");
 
   const totalStepsLeft = linkedList.getArrayOfSteps();
-  const div = document.querySelector(".div");
+  const div = document.querySelector(".execSteps");
 
   if (!div) return;
 
@@ -42,7 +42,9 @@ export function runAll(linkedList: LinkedList) {
 }
 
 export function appendNode(list: LinkedList) {
-  const div = document.querySelector(".div");
+  const div = document.querySelector(".execSteps");
+  const explanationDiv = document.querySelector(".liveThink");
+
   const type = document.createElement("span");
   const p = document.createElement("p");
 
@@ -53,4 +55,5 @@ export function appendNode(list: LinkedList) {
 
   div?.appendChild(type);
   div?.appendChild(p);
+  if (explanationDiv) explanationDiv.textContent = list.val.reasoning;
 }
