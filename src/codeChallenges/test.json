@@ -2,39 +2,48 @@
   "steps": [
     {
       "type": "Callstack",
-      "code": "console.log(A);"
+      "code": "console.log(A);",
+      "reasoning": "Code execution starts from top and reaches console.log(A) wich is pushed to the Callstack"
     },
     {
       "type": "Output",
-      "code": "A"
+      "code": "A",
+      "reasoning": "console.log(A) is a syncronous function so is executed inmediatly on the callstack giving an output of A on the console"
     },
     {
       "type": "Callstack",
-      "code": "SetTimeout(cb);"
+      "code": "SetTimeout(cb);",
+      "reasoning": "Code execution reaches SetTimeout and is pushed to the main callstack"
     },
     {
-      "type": "webApi",
-      "code": "SetTimeout(cb);"
+      "type": "Webapi",
+      "code": "SetTimeout(cb);",
+      "reasoning": "SetTimeout is an asyncronous function so is pushed to the web api thread releasing the main callstack and waits for 0s on the webapi thread"
     },
     {
       "type": "Macrotask queue",
-      "code": "() => console.log(B)"
+      "code": "() => console.log(B)",
+      "reasoning": "once time is passed the callback of SetTimeout is pushed to the macrotask queue"
     },
     {
       "type": "Callstack",
-      "code": "console.log(C)"
+      "code": "console.log(C)",
+      "reasoning": "code execution reaches console.log(C) and push this function on the callstack"
     },
     {
       "type": "Output",
-      "code": "C"
+      "code": "C",
+      "reasoning": "console.log(C) is a syncronous function so is executed inmediatly on the callstack giving an output of C on the console"
     },
     {
       "type": "Callstack",
-      "code": "console.log(B)"
+      "code": "console.log(B)",
+      "reasoning": "once the main callstack is clean the macrotask queue push the callback on the main callstack wich is a console.log(B)"
     },
     {
       "type": "Output",
-      "code": "B"
+      "code": "B",
+      "reasoning": "console.log(B) is a syncronous function so is executed inmediatly on the callstack giving an output of B on the console"
     }
   ]
 }
