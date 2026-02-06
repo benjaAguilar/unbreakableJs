@@ -1,21 +1,29 @@
 import "./style.css";
-import { createList, jsCode, runAll } from "./codeChallenges/syncVsAsync.ts";
+import Prism from "prismjs";
+import { appendNode, createList, runAll } from "./lib.ts";
+import jsCode from "./codeChallenges/syncVsAsync.js?raw";
 import json from "./codeChallenges/test.json" with { type: "json" };
-import type { LinkedList } from "./linkedList.ts";
 
+const code = Prism.highlight(jsCode, Prism.languages.javascript, "javascript");
 let list = createList(json);
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   <div class='content'>
     <div class='code'>
       <h2>Code</h2>
-      ${jsCode}
+      <pre>
+        <code class='codeSnipet'>
+          ${code}
+        </code>
+      </pre>
     </div>
     <div class='visualizer'>
       <h2>Live visualizer</h2>
-      <button id='runAll'>Run all</button>
-      <button id='prevBtn'>prev step</button>
-      <button id='nextBtn'>next step</button>
+      <div class='btns'>
+        <button id='runAll'>Run all</button>
+        <button id='prevBtn'>prev step</button>
+        <button id='nextBtn'>next step</button>
+      </div>
       <div class='div'>
       </div> 
     </div>
@@ -25,25 +33,29 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
   </div>
 `;
 
+let lasteElemIsPrinted = false;
 document.querySelector("#runAll")?.addEventListener("click", () => {
   if (!list.next) return alert("no code steps left");
 
   runAll(list);
   list = list.tail();
+  lasteElemIsPrinted = true;
 });
 
 document.querySelector("#prevBtn")?.addEventListener("click", () => {
+  document.querySelector(".div")?.lastChild?.remove();
+  document.querySelector(".div")?.lastChild?.remove();
   if (list.prev) {
-    document.querySelector(".div")?.lastChild?.remove();
-
     list = list.prev;
+    if (lasteElemIsPrinted) lasteElemIsPrinted = false;
   }
 });
 
 document.querySelector("#nextBtn")?.addEventListener("click", () => {
-  const p = document.createElement("p");
-  p.textContent = `${list.val.type}: ${list.val.code}`;
-  document.querySelector(".div")?.appendChild(p);
+  if (!lasteElemIsPrinted) {
+    appendNode(list);
+    if (!list.next) lasteElemIsPrinted = true;
+  }
 
   list = list.next ? list.next : list;
 });
