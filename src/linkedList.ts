@@ -1,6 +1,7 @@
 type Val = {
   type: string;
   code: string;
+  reasoning: string;
 };
 
 export class LinkedList {
