@@ -24,7 +24,11 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
         <button id='prevBtn'>prev step</button>
         <button id='nextBtn'>next step</button>
       </div>
-      <div class='div'>
+      <div class='div'>        
+        <div class='execSteps'>
+        </div> 
+        <div class='liveThink'>
+        </div> 
       </div> 
     </div>
     <div class='quiz'>
@@ -43,8 +47,8 @@ document.querySelector("#runAll")?.addEventListener("click", () => {
 });
 
 document.querySelector("#prevBtn")?.addEventListener("click", () => {
-  document.querySelector(".div")?.lastChild?.remove();
-  document.querySelector(".div")?.lastChild?.remove();
+  document.querySelector(".execSteps")?.lastChild?.remove();
+  document.querySelector(".execSteps")?.lastChild?.remove();
   if (list.prev) {
     list = list.prev;
     if (lasteElemIsPrinted) lasteElemIsPrinted = false;
